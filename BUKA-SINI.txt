@@ -1,0 +1,30 @@
+============================================
+🚀 CARA BUKA WEBSITE INSTRATEGIC
+============================================
+
+📌 CARA PALING MUDAH:
+
+1. Cari file bernama: index.html
+2. Klik 2x (double-click) file tersebut
+3. Website akan terbuka di browser!
+
+============================================
+
+📂 Lokasi File: /workspace/index.html
+
+🌐 Atau buka browser dan ketik:
+   file:///workspace/index.html
+
+============================================
+
+💡 TIPS:
+- File index.html ada di folder yang sama dengan file ini
+- Kalau tidak bisa, drag file index.html ke browser (Chrome/Firefox/Edge)
+
+============================================
+
+✅ Website sudah siap pakai!
+✅ Tidak perlu install apapun!
+✅ Langsung bisa dilihat!
+
+============================================
