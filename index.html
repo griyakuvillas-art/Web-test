@@ -37,8 +37,8 @@
                             <path d="M12 12V28M20 16V28M28 20V28" stroke="white" stroke-width="3" stroke-linecap="round"/>
                             <defs>
                                 <linearGradient id="logo-gradient" x1="0" y1="0" x2="40" y2="40">
-                                    <stop offset="0%" stop-color="#6800FC"/>
-                                    <stop offset="100%" stop-color="#9D4EDD"/>
+                                    <stop offset="0%" stop-color="#6366F1"/>
+                                    <stop offset="100%" stop-color="#8B5CF6"/>
                                 </linearGradient>
                             </defs>
                         </svg>
@@ -65,14 +65,22 @@
         </div>
     </nav>
 
+    <!-- Ticker Tape - Real-time Stock Prices -->
+    <div class="ticker-tape">
+        <div class="ticker-content" id="ticker-content">
+            <div class="ticker-item loading">
+                <span class="ticker-symbol">?? Loading real-time data...</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-gradient"></div>
         <div class="container">
             <div class="hero-content">
                 <div class="hero-badge">
-                    <span class="badge-icon">?</span>
-                    <span>Platform #1 Wawasan Pasar Saham Indonesia</span>
+                    ?? Platform #1 Analisis Saham Indonesia
                 </div>
                 <h1 class="hero-title">
                     Analisis Saham Indonesia<br>
@@ -128,11 +136,32 @@
             </div>
 
             <div class="market-cards">
-                <div class="glass-card market-card">
+                <div class="market-card" id="ihsg-card">
                     <div class="market-card-header">
                         <div>
-                            <h3>IHSG</h3>
-                            <p>Indeks Harga Saham Gabungan</p>
+                            <h3>^JKSE (IHSG)</h3>
+                            <p>IDX Composite</p>
+                        </div>
+                        <div class="index-change" id="ihsg-trend">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 14L12 9L17 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="market-card-value">
+                        <span class="value" id="ihsg-value">Loading...</span>
+                        <span class="change" id="ihsg-change">--</span>
+                    </div>
+                    <div class="market-card-meta">
+                        <span id="ihsg-time">--</span>
+                    </div>
+                </div>
+
+                <div class="market-card" id="bbca-card">
+                    <div class="market-card-header">
+                        <div>
+                            <h3>?? BBCA</h3>
+                            <p>Bank Central Asia</p>
                         </div>
                         <div class="index-change positive">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -141,17 +170,19 @@
                         </div>
                     </div>
                     <div class="market-card-value">
-                        <span class="value">7,245.32</span>
-                        <span class="change positive">+48.25 (+0.67%)</span>
+                        <span class="value" id="bbca-value">Loading...</span>
+                        <span class="change positive" id="bbca-change">--</span>
                     </div>
-                    <div class="mini-chart" id="ihsg-chart"></div>
+                    <div class="market-card-meta">
+                        <span id="bbca-time">--</span>
+                    </div>
                 </div>
 
-                <div class="glass-card market-card">
+                <div class="market-card" id="tlkm-card">
                     <div class="market-card-header">
                         <div>
-                            <h3>LQ45</h3>
-                            <p>45 Saham Paling Likuid</p>
+                            <h3>?? TLKM</h3>
+                            <p>Telkom Indonesia</p>
                         </div>
                         <div class="index-change positive">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -160,44 +191,32 @@
                         </div>
                     </div>
                     <div class="market-card-value">
-                        <span class="value">1,034.89</span>
-                        <span class="change positive">+12.45 (+1.22%)</span>
+                        <span class="value" id="tlkm-value">Loading...</span>
+                        <span class="change positive" id="tlkm-change">--</span>
                     </div>
-                    <div class="mini-chart" id="lq45-chart"></div>
+                    <div class="market-card-meta">
+                        <span id="tlkm-time">--</span>
+                    </div>
                 </div>
 
-                <div class="glass-card market-card">
+                <div class="market-card" id="asii-card">
                     <div class="market-card-header">
                         <div>
-                            <h3>IDX30</h3>
-                            <p>30 Saham Blue Chip</p>
+                            <h3>?? ASII</h3>
+                            <p>Astra International</p>
                         </div>
-                        <div class="index-change negative">
+                        <div class="index-change positive">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M7 14L12 9L17 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                             </svg>
                         </div>
                     </div>
                     <div class="market-card-value">
-                        <span class="value">512.67</span>
-                        <span class="change negative">-3.21 (-0.62%)</span>
+                        <span class="value" id="asii-value">Loading...</span>
+                        <span class="change positive" id="asii-change">--</span>
                     </div>
-                    <div class="mini-chart" id="idx30-chart"></div>
-                </div>
-
-                <div class="glass-card market-card">
-                    <div class="market-card-header">
-                        <div>
-                            <h3>Volume</h3>
-                            <p>Total Transaksi Hari Ini</p>
-                        </div>
-                    </div>
-                    <div class="market-card-value">
-                        <span class="value">28.4M</span>
-                        <span class="change-label">Lot</span>
-                    </div>
-                    <div class="volume-bar">
-                        <div class="volume-fill" style="width: 65%"></div>
+                    <div class="market-card-meta">
+                        <span id="asii-time">--</span>
                     </div>
                 </div>
             </div>
@@ -832,6 +851,7 @@
         </div>
     </footer>
 
+    <script src="api-yahoo.js"></script>
     <script src="script-modern.js"></script>
 </body>
 </html>
