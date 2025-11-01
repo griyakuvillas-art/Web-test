@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Platform analisis saham Indonesia real-time. 100% data dari Yahoo Finance API.">
+    <title>InStrategic - Real-time Yahoo Finance Data</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--primary:#6366F1;--primary-hover:#4F46E5;--accent:#10B981;--danger:#EF4444;
+--bg:#FFFFFF;--bg-elevated:#F9FAFB;--bg-card:#FFFFFF;--bg-hover:#F3F4F6;
+--text:#0F172A;--text-secondary:#475569;--text-tertiary:#94A3B8;
+--border:#E2E8F0;--border-hover:#CBD5E1;
+--shadow-sm:0 1px 2px 0 rgba(15,23,42,0.05);
+--shadow-md:0 4px 6px -1px rgba(15,23,42,0.08);
+--shadow-lg:0 10px 15px -3px rgba(15,23,42,0.1);
+--radius-sm:6px;--radius-md:8px;--radius-lg:12px;--radius-xl:16px;--radius-full:9999px;
+--transition:200ms cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="dark"]{
+--bg:#0F172A;--bg-elevated:#1E293B;--bg-card:#1E293B;--bg-hover:#334155;
+--text:#F8FAFC;--text-secondary:#CBD5E1;--text-tertiary:#64748B;
+--border:#334155;--border-hover:#475569;
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;color:var(--text);background:var(--bg);transition:background var(--transition);min-height:100vh}
+.container{max-width:1280px;margin:0 auto;padding:0 1.5rem}
+nav{position:sticky;top:0;z-index:100;background:var(--bg-elevated);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.nav-wrapper{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',sans-serif;font-size:1.25rem;font-weight:700;color:var(--text);text-decoration:none}
+.theme-switch{position:fixed;top:1.5rem;right:1.5rem;z-index:1000;display:flex;gap:4px;padding:4px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-full);box-shadow:var(--shadow-lg)}
+.theme-btn{width:40px;height:40px;border:none;background:transparent;color:var(--text-tertiary);border-radius:var(--radius-full);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--transition)}
+.theme-btn:hover{background:var(--bg-hover);color:var(--text)}
+.theme-btn.active{background:var(--primary);color:white}
+.hero{padding:6rem 0;text-align:center}
+h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.5rem}
+.gradient{background:linear-gradient(135deg,var(--primary) 0%,#8B5CF6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.badge{display:inline-block;padding:8px 16px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-full);font-size:0.875rem;font-weight:600;margin-bottom:1.5rem}
+.hero-text{font-size:1.25rem;color:var(--text-secondary);max-width:42rem;margin:0 auto 2.5rem;line-height:1.7}
+.market-section{padding:5rem 0}
+.section-head{margin-bottom:3rem}
+.section-head h2{font-family:'Space Grotesk',sans-serif;font-size:2.25rem;font-weight:700;margin-bottom:8px}
+.section-head p{font-size:1.125rem;color:var(--text-secondary)}
+.market-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.market-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;transition:all var(--transition)}
+.market-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.market-label{font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:4px}
+.market-name{font-family:'Space Grotesk',sans-serif;font-size:1.125rem;font-weight:700;margin-bottom:12px}
+.market-price{font-family:'Space Grotesk',sans-serif;font-size:1.875rem;font-weight:700;margin-bottom:8px}
+.market-change{font-size:0.9375rem;font-weight:600;margin-bottom:12px}
+.market-change.positive{color:var(--accent)}
+.market-change.negative{color:var(--danger)}
+.market-time{font-size:0.8125rem;color:var(--text-tertiary)}
+.market-source{font-size:0.75rem;color:var(--text-tertiary);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+.loading-spinner{width:40px;height:40px;border:4px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.api-status{position:fixed;bottom:1.5rem;left:1.5rem;padding:12px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);font-size:0.875rem;z-index:1000}
+.api-status .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;animation:pulse 2s infinite}
+.api-status.loading .status-dot{background:#F59E0B}
+.api-status.success .status-dot{background:#10B981}
+.api-status.error .status-dot{background:#EF4444}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+@media (max-width:768px){
+    .market-grid{grid-template-columns:1fr}
+    h1{font-size:2rem}
+    .hero{padding:4rem 0}
+}
+    </style>
+</head>
+<body data-theme="dark">
+    
+    <div class="theme-switch">
+        <button class="theme-btn" data-theme="light" aria-label="Light">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M20.66 7l-1.73 1M5.07 17.93l-1.73 1M22 12h-2M4 12H2M20.66 17l-1.73-1M5.07 7.07L3.34 5.93"/>
+            </svg>
+        </button>
+        <button class="theme-btn active" data-theme="dark" aria-label="Dark">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="api-status loading">
+        <span class="status-dot"></span>
+        <span id="api-status-text">Connecting to Yahoo Finance...</span>
+    </div>
+
+    <nav>
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="#" class="logo">
+                    <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
+                        <rect width="36" height="36" rx="8" fill="url(#g1)"/>
+                        <path d="M11 11v14M18 15v10M25 19v6" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        <defs><linearGradient id="g1" x1="0" y1="0" x2="36" y2="36">
+                            <stop offset="0%" stop-color="#6366F1"/>
+                            <stop offset="100%" stop-color="#8B5CF6"/>
+                        </linearGradient></defs>
+                    </svg>
+                    <span>InStrategic</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="badge">? 100% Real Yahoo Finance API</div>
+            <h1>Real-time Data<br><span class="gradient">Langsung dari Yahoo Finance</span></h1>
+            <p class="hero-text">Semua data diambil langsung dari Yahoo Finance API tanpa mock data. Update setiap 30 detik.</p>
+        </div>
+    </section>
+
+    <section class="market-section">
+        <div class="container">
+            <div class="section-head">
+                <h2>Live Market Data</h2>
+                <p>Data real-time dari Yahoo Finance - November 1, 2025</p>
+            </div>
+            <div id="market-cards">
+                <div style="text-align:center;padding:3rem">
+                    <div class="loading-spinner"></div>
+                    <p style="margin-top:1rem;color:var(--text-secondary)">Fetching real-time data from Yahoo Finance...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+console.log('%c InStrategic Real-time API ','background:linear-gradient(135deg,#6366F1,#8B5CF6);color:white;padding:8px 16px;border-radius:4px;font-weight:bold');
+console.log('100% Yahoo Finance API - NO MOCK DATA');
+console.log('November 1, 2025');
+
+const API_BASE = 'https://query1.finance.yahoo.com/v8/finance/chart/';
+const STOCKS = [
+    {symbol:'^JKSE', name:'IHSG', display:'IDX Composite'},
+    {symbol:'BBCA.JK', name:'BBCA', display:'Bank Central Asia'},
+    {symbol:'TLKM.JK', name:'TLKM', display:'Telkom Indonesia'},
+    {symbol:'BBRI.JK', name:'BBRI', display:'Bank Rakyat Indonesia'},
+    {symbol:'BMRI.JK', name:'BMRI', display:'Bank Mandiri'},
+    {symbol:'ASII.JK', name:'ASII', display:'Astra International'},
+    {symbol:'UNVR.JK', name:'UNVR', display:'Unilever Indonesia'},
+    {symbol:'GOTO.JK', name:'GOTO', display:'GoTo Gojek Tokopedia'}
+];
+
+let apiCallCount = 0;
+let successCount = 0;
+
+function updateAPIStatus(status, text) {
+    const elem = document.querySelector('.api-status');
+    const textElem = document.getElementById('api-status-text');
+    elem.className = 'api-status ' + status;
+    textElem.textContent = text;
+}
+
+async function fetchYahooFinance(symbol) {
+    const url = API_BASE + symbol + '?interval=1d&range=5d';
+    apiCallCount++;
+    
+    console.log(`[API Call ${apiCallCount}] Fetching ${symbol}...`);
+    
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'User-Agent': 'Mozilla/5.0',
+                'Accept': 'application/json'
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (!data.chart?.result?.[0]) {
+            throw new Error('Invalid response structure');
+        }
+        
+        const result = data.chart.result[0];
+        const meta = result.meta;
+        const quote = result.indicators.quote[0];
+        
+        // CORRECT PARSING - menggunakan chartPreviousClose!
+        const currentPrice = meta.regularMarketPrice || 0;
+        const previousClose = meta.chartPreviousClose || 0;
+        const change = currentPrice - previousClose;
+        const changePercent = previousClose ? (change / previousClose) * 100 : 0;
+        const volume = meta.regularMarketVolume || 0;
+        const timestamp = new Date(meta.regularMarketTime * 1000);
+        
+        successCount++;
+        
+        console.log(`? [${symbol}] Success!`);
+        console.log(`   Price: ${currentPrice.toLocaleString('id-ID')}`);
+        console.log(`   Previous: ${previousClose.toLocaleString('id-ID')}`);
+        console.log(`   Change: ${change >= 0 ? '+' : ''}${change.toFixed(2)} (${changePercent.toFixed(2)}%)`);
+        console.log(`   Time: ${timestamp.toLocaleString('id-ID')}`);
+        
+        return {
+            price: currentPrice,
+            previousClose: previousClose,
+            change: change,
+            changePercent: changePercent,
+            volume: volume,
+            timestamp: timestamp,
+            currency: meta.currency || 'IDR',
+            source: 'Yahoo Finance API',
+            isReal: true
+        };
+        
+    } catch (error) {
+        console.error(`? [${symbol}] Failed:`, error.message);
+        return null;
+    }
+}
+
+function formatPrice(price, currency = 'IDR') {
+    if (currency === 'IDR') {
+        return 'Rp ' + price.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function formatVolume(vol) {
+    if (vol >= 1e9) return (vol / 1e9).toFixed(1) + 'B';
+    if (vol >= 1e6) return (vol / 1e6).toFixed(1) + 'M';
+    if (vol >= 1e3) return (vol / 1e3).toFixed(1) + 'K';
+    return vol.toString();
+}
+
+function renderMarketCards(stocksData) {
+    const validData = stocksData.filter(s => s.data !== null);
+    
+    if (validData.length === 0) {
+        document.getElementById('market-cards').innerHTML = `
+            <div style="text-align:center;padding:3rem;color:var(--danger)">
+                <p style="font-size:1.25rem;font-weight:600;margin-bottom:8px">?? API Error</p>
+                <p style="color:var(--text-secondary)">Tidak dapat mengambil data dari Yahoo Finance. Coba refresh halaman.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    const html = validData.map(stock => {
+        const d = stock.data;
+        const isPositive = d.change >= 0;
+        const changeClass = isPositive ? 'positive' : 'negative';
+        const changeSymbol = isPositive ? '+' : '';
+        
+        return `
+            <div class="market-card">
+                <div class="market-label">${stock.display}</div>
+                <div class="market-name">${stock.name}</div>
+                <div class="market-price">${formatPrice(d.price, d.currency)}</div>
+                <div class="market-change ${changeClass}">
+                    ${changeSymbol}${formatPrice(d.change, d.currency)} (${changeSymbol}${d.changePercent.toFixed(2)}%)
+                </div>
+                <div class="market-time">
+                    ${d.timestamp.toLocaleString('id-ID', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        day: 'numeric',
+                        month: 'short'
+                    })}
+                </div>
+                <div class="market-source">
+                    ? ${d.source} | Vol: ${formatVolume(d.volume)}
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    document.getElementById('market-cards').innerHTML = `<div class="market-grid">${html}</div>`;
+    
+    updateAPIStatus('success', `? ${successCount}/${apiCallCount} API calls successful | Yahoo Finance`);
+}
+
+async function loadAllData() {
+    console.log('\n?? Starting real-time data fetch...');
+    console.log(`Time: ${new Date().toLocaleString('id-ID')}`);
+    
+    updateAPIStatus('loading', 'Fetching from Yahoo Finance...');
+    
+    apiCallCount = 0;
+    successCount = 0;
+    
+    const results = await Promise.all(
+        STOCKS.map(async stock => ({
+            ...stock,
+            data: await fetchYahooFinance(stock.symbol)
+        }))
+    );
+    
+    console.log(`\n?? Results: ${successCount}/${apiCallCount} successful`);
+    
+    renderMarketCards(results);
+}
+
+// Theme toggle
+document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.onclick = () => {
+        const theme = btn.dataset.theme;
+        document.body.dataset.theme = theme;
+        document.querySelectorAll('.theme-btn').forEach(b => 
+            b.classList.toggle('active', b.dataset.theme === theme)
+        );
+        localStorage.setItem('theme', theme);
+    };
+});
+
+// Load saved theme
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.body.dataset.theme = savedTheme;
+document.querySelectorAll('.theme-btn').forEach(b => 
+    b.classList.toggle('active', b.dataset.theme === savedTheme)
+);
+
+// Load data
+loadAllData();
+
+// Auto-refresh every 30 seconds
+setInterval(() => {
+    console.log('\n?? Auto-refresh triggered');
+    loadAllData();
+}, 30000);
+    </script>
+</body>
+</html>
