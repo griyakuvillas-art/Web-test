@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUKTI - Yahoo Finance API Real Call</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Courier New', monospace; 
+            background: #0a0a0a; 
+            color: #00ff00; 
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { 
+            color: #00ff00; 
+            text-align: center; 
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        .info {
+            background: #1a1a1a;
+            border: 2px solid #00ff00;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .info h2 {
+            color: #ffff00;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .api-call {
+            background: #000;
+            border-left: 4px solid #00ff00;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .api-call .url {
+            color: #0099ff;
+            word-break: break-all;
+            margin-bottom: 10px;
+        }
+        .api-call .status {
+            color: #ffff00;
+            font-weight: bold;
+        }
+        .response {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            padding: 15px;
+            margin: 10px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .response pre {
+            color: #00ff00;
+            font-size: 0.9rem;
+        }
+        .stock-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .stock-card h3 {
+            color: #00ff00;
+            margin-bottom: 15px;
+        }
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+        }
+        .data-row:last-child { border-bottom: none; }
+        .label { color: #888; }
+        .value { color: #00ff00; font-weight: bold; }
+        .positive { color: #00ff00; }
+        .negative { color: #ff0000; }
+        button {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #00cc00;
+        }
+        .loading {
+            text-align: center;
+            color: #ffff00;
+            padding: 20px;
+        }
+        .proof {
+            background: #1a1a1a;
+            border: 2px solid #ff00ff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .proof h2 {
+            color: #ff00ff;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>?? BUKTI YAHOO FINANCE API - NO MOCK DATA</h1>
+        
+        <div class="info">
+            <h2>?? API Endpoint yang Digunakan:</h2>
+            <p style="color: #00ff00;">https://query1.finance.yahoo.com/v8/finance/chart/{SYMBOL}</p>
+            <p style="color: #888; margin-top: 10px;">Official Yahoo Finance API - Gratis, No API Key Required</p>
+        </div>
+
+        <div class="proof">
+            <h2>?? CARA VERIFY:</h2>
+            <ol style="color: #00ff00; margin-left: 20px;">
+                <li>Klik tombol "TEST API" di bawah</li>
+                <li>Buka F12 ? Network Tab</li>
+                <li>Lihat request ke query1.finance.yahoo.com</li>
+                <li>Compare dengan Yahoo Finance website langsung</li>
+                <li>Semua data HARUS SAMA!</li>
+            </ol>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <button onclick="testAPI()">?? TEST API SEKARANG</button>
+            <button onclick="clearResults()">??? Clear</button>
+            <button onclick="autoRefresh()">?? Auto-refresh (30s)</button>
+        </div>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        console.log('%c YAHOO FINANCE API TEST ', 'background: #00ff00; color: #000; padding: 10px; font-weight: bold; font-size: 16px;');
+        console.log('Buka Network Tab untuk lihat API calls!');
+
+        const STOCKS = [
+            { symbol: '^JKSE', name: 'IHSG (IDX Composite)' },
+            { symbol: 'BBCA.JK', name: 'Bank Central Asia' },
+            { symbol: 'TLKM.JK', name: 'Telkom Indonesia' },
+            { symbol: 'BBRI.JK', name: 'Bank Rakyat Indonesia' },
+            { symbol: 'BMRI.JK', name: 'Bank Mandiri' },
+            { symbol: 'ASII.JK', name: 'Astra International' }
+        ];
+
+        let refreshInterval = null;
+
+        async function fetchYahooFinance(symbol) {
+            const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&range=5d`;
+            
+            console.log(`%c API CALL: ${symbol} `, 'background: #0099ff; color: white; padding: 4px;');
+            console.log(`URL: ${url}`);
+            
+            const startTime = performance.now();
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0',
+                        'Accept': 'application/json'
+                    }
+                });
+
+                const endTime = performance.now();
+                const responseTime = (endTime - startTime).toFixed(2);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                const result = data.chart.result[0];
+                const meta = result.meta;
+                const quote = result.indicators.quote[0];
+
+                const currentPrice = meta.regularMarketPrice;
+                const previousClose = meta.chartPreviousClose || 0;
+                const change = currentPrice - previousClose;
+                const changePercent = previousClose ? (change / previousClose) * 100 : 0;
+
+                console.log(`%c SUCCESS: ${symbol} `, 'background: #00ff00; color: #000; padding: 4px;');
+                console.log(`Price: ${currentPrice} | Change: ${change >= 0 ? '+' : ''}${change.toFixed(2)} (${changePercent.toFixed(2)}%)`);
+                console.log(`Response Time: ${responseTime}ms`);
+                console.log('Raw Meta:', meta);
+
+                return {
+                    symbol: meta.symbol,
+                    exchange: meta.fullExchangeName,
+                    price: currentPrice,
+                    previousClose: previousClose,
+                    change: change,
+                    changePercent: changePercent,
+                    volume: meta.regularMarketVolume,
+                    currency: meta.currency,
+                    timestamp: new Date(meta.regularMarketTime * 1000),
+                    responseTime: responseTime,
+                    rawData: meta,
+                    success: true
+                };
+
+            } catch (error) {
+                console.error(`%c ERROR: ${symbol} `, 'background: #ff0000; color: white; padding: 4px;', error);
+                return {
+                    symbol: symbol,
+                    success: false,
+                    error: error.message
+                };
+            }
+        }
+
+        function renderResults(results) {
+            const container = document.getElementById('results');
+            container.innerHTML = '';
+
+            results.forEach(data => {
+                if (!data.success) {
+                    container.innerHTML += `
+                        <div class="stock-card" style="border-color: #ff0000;">
+                            <h3 style="color: #ff0000;">? ${data.symbol} - Error</h3>
+                            <p style="color: #ff0000;">${data.error}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const isPositive = data.change >= 0;
+                const changeClass = isPositive ? 'positive' : 'negative';
+                const changeSymbol = isPositive ? '?' : '?';
+
+                const card = document.createElement('div');
+                card.className = 'stock-card';
+                card.innerHTML = `
+                    <h3>? ${data.symbol} - ${data.exchange}</h3>
+                    
+                    <div class="data-row">
+                        <span class="label">Current Price:</span>
+                        <span class="value">${data.currency} ${data.price.toLocaleString('id-ID', {minimumFractionDigits: 2})}</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="label">Previous Close:</span>
+                        <span class="value">${data.currency} ${data.previousClose.toLocaleString('id-ID', {minimumFractionDigits: 2})}</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="label">Change:</span>
+                        <span class="value ${changeClass}">
+                            ${changeSymbol} ${data.currency} ${Math.abs(data.change).toFixed(2)} 
+                            (${isPositive ? '+' : ''}${data.changePercent.toFixed(2)}%)
+                        </span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="label">Volume:</span>
+                        <span class="value">${data.volume.toLocaleString('id-ID')}</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="label">Market Time:</span>
+                        <span class="value">${data.timestamp.toLocaleString('id-ID')}</span>
+                    </div>
+                    
+                    <div class="data-row">
+                        <span class="label">API Response Time:</span>
+                        <span class="value">${data.responseTime}ms</span>
+                    </div>
+                    
+                    <div class="response">
+                        <strong style="color: #ffff00;">?? RAW API RESPONSE (Meta):</strong>
+                        <pre>${JSON.stringify(data.rawData, null, 2)}</pre>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Summary
+            const summary = document.createElement('div');
+            summary.className = 'info';
+            summary.style.marginTop = '30px';
+            summary.innerHTML = `
+                <h2>?? Test Summary:</h2>
+                <p>? Success: ${results.filter(r => r.success).length}/${results.length}</p>
+                <p>? Failed: ${results.filter(r => !r.success).length}/${results.length}</p>
+                <p>?? Source: query1.finance.yahoo.com (Yahoo Finance Official API)</p>
+                <p>?? Test Time: ${new Date().toLocaleString('id-ID')}</p>
+                <p style="color: #00ff00; font-weight: bold; margin-top: 15px;">
+                    ?? 100% REAL DATA - NO MOCK!
+                </p>
+            `;
+            container.appendChild(summary);
+        }
+
+        async function testAPI() {
+            const container = document.getElementById('results');
+            container.innerHTML = '<div class="loading">? Fetching data from Yahoo Finance API...<br>Check F12 Network Tab!</div>';
+
+            console.log('%c ========== NEW TEST STARTED ========== ', 'background: #ffff00; color: #000; padding: 10px; font-weight: bold;');
+            console.log(`Test Time: ${new Date().toLocaleString('id-ID')}`);
+
+            const results = await Promise.all(
+                STOCKS.map(stock => fetchYahooFinance(stock.symbol))
+            );
+
+            renderResults(results);
+
+            console.log('%c ========== TEST COMPLETED ========== ', 'background: #00ff00; color: #000; padding: 10px; font-weight: bold;');
+        }
+
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+                refreshInterval = null;
+            }
+        }
+
+        function autoRefresh() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+                refreshInterval = null;
+                alert('Auto-refresh stopped');
+                return;
+            }
+
+            testAPI();
+            refreshInterval = setInterval(testAPI, 30000);
+            alert('Auto-refresh enabled (every 30 seconds)');
+        }
+
+        // Run test on load
+        window.addEventListener('load', () => {
+            console.log('%c READY! ', 'background: #00ff00; color: #000; padding: 10px; font-weight: bold;');
+            console.log('Klik tombol TEST API untuk mulai!');
+            console.log('Buka Network Tab di F12 untuk verify API calls!');
+        });
+    </script>
+</body>
+</html>
