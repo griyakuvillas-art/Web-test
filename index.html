@@ -5,12 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InStrategic - Platform Wawasan Pasar Saham Indonesia</title>
     <meta name="description" content="Platform analisis saham Indonesia terlengkap dengan data fundamental, valuasi, dan wawasan pasar yang mudah dipahami investor ritel.">
-    <link rel="stylesheet" href="styles-v2.css">
+    <link rel="stylesheet" href="styles-modern.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
-<body>
+<body data-theme="light">
+    <!-- Dark Mode Toggle -->
+    <div class="theme-toggle">
+        <button class="theme-btn active" data-theme="light" title="Light Mode">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="10" cy="10" r="4"/>
+                <path d="M10 1v2M10 17v2M18.66 5.34l-1.41 1.41M4.76 15.24l-1.41 1.41M19 10h-2M3 10H1M18.66 14.66l-1.41-1.41M4.76 4.76L3.34 3.34"/>
+            </svg>
+        </button>
+        <button class="theme-btn" data-theme="dark" title="Dark Mode">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 10.5A7 7 0 1 1 9.5 3c-.39.59-.5 1.27-.5 2 0 3.31 2.69 6 6 6 .73 0 1.41-.11 2-.5z"/>
+            </svg>
+        </button>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
@@ -38,8 +53,8 @@
                     <li><a href="#tentang">Tentang</a></li>
                 </ul>
                 <div class="nav-actions">
-                    <button class="btn-secondary">Masuk</button>
-                    <button class="btn-primary">Coba Premium</button>
+                    <button class="btn btn-secondary">Masuk</button>
+                    <button class="btn btn-primary">Coba Premium</button>
                 </div>
                 <button class="mobile-menu-toggle">
                     <span></span>
@@ -68,13 +83,13 @@
                     dan insight yang disajikan secara visual ? tanpa perlu membaca laporan keuangan yang rumit.
                 </p>
                 <div class="hero-actions">
-                    <button class="btn-primary">
+                    <button class="btn btn-primary btn-large">
                         <span>Mulai Gratis</span>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </button>
-                    <button class="btn-outline">
+                    <button class="btn btn-outline btn-large">
                         <span>Lihat Demo</span>
                     </button>
                 </div>
@@ -817,6 +832,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script-modern.js"></script>
 </body>
 </html>
