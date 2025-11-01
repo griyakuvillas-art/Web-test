@@ -79,18 +79,18 @@ class ThemeManager {
     }
 }
 
-// === API CLIENT (Use Enhanced API if available) ===
+// === API CLIENT (PROFESSIONAL REAL-TIME API) ===
 class StockAPI {
     constructor() {
-        // Use EnhancedStockAPI if available, otherwise fallback
-        if (typeof EnhancedStockAPI !== 'undefined') {
-            Logger.info('Using EnhancedStockAPI for better reliability');
-            return new EnhancedStockAPI();
+        // Use RealTimeStockAPI - 100% REAL DATA from Yahoo Finance
+        if (typeof RealTimeStockAPI !== 'undefined') {
+            Logger.info('Using PROFESSIONAL Real-time API - 100% Real Yahoo Finance Data');
+            return new RealTimeStockAPI();
         }
         
-        Logger.warn('EnhancedStockAPI not found, using fallback');
-        this.cache = new Map();
-        this.cacheTimeout = 15000; // 15 seconds
+        // This should never happen if api-realtime.js is loaded
+        Logger.error('CRITICAL: RealTimeStockAPI not found! Check if api-realtime.js is loaded');
+        throw new Error('Real-time API not available. Please refresh the page.');
     }
 
     async fetchWithTimeout(url, timeout = CONFIG.apiTimeout) {

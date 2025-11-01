@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Real-time Yahoo Finance API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 2rem;
+            background: #0f172a;
+            color: #f8fafc;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+        .status {
+            background: #1e293b;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #10b981;
+        }
+        .test-btn {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+        .test-btn:hover {
+            background: #4f46e5;
+        }
+        .test-btn:disabled {
+            background: #475569;
+            cursor: not-allowed;
+        }
+        .results {
+            margin-top: 2rem;
+        }
+        .stock-card {
+            background: #1e293b;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #334155;
+        }
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .stock-symbol {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #6366f1;
+        }
+        .stock-price {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .stock-change {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .positive {
+            color: #10b981;
+        }
+        .negative {
+            color: #ef4444;
+        }
+        .stock-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #334155;
+        }
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .meta-label {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .meta-value {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .error {
+            background: #7f1d1d;
+            color: #fecaca;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #334155;
+            border-top-color: #6366f1;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        .badge-real {
+            background: #10b981;
+            color: white;
+        }
+        .badge-cache {
+            background: #f59e0b;
+            color: white;
+        }
+        #console {
+            background: #0a0f1e;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .console-line {
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+        }
+        .console-success {
+            color: #10b981;
+        }
+        .console-error {
+            color: #ef4444;
+        }
+        .console-info {
+            color: #6366f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>?? Professional Real-time Yahoo Finance API Test</h1>
+        
+        <div class="status">
+            <h2>API Status</h2>
+            <p><strong>Provider:</strong> Yahoo Finance</p>
+            <p><strong>Data Type:</strong> 100% Real-time (NO MOCK DATA)</p>
+            <p><strong>Date:</strong> <span id="current-date">Loading...</span></p>
+            <p><strong>Market Status:</strong> <span id="market-status">Checking...</span></p>
+        </div>
+
+        <div>
+            <button class="test-btn" onclick="testSingleStock()">Test BBCA.JK</button>
+            <button class="test-btn" onclick="testMultipleStocks()">Test 5 Stocks</button>
+            <button class="test-btn" onclick="clearResults()">Clear Results</button>
+            <button class="test-btn" onclick="clearCache()">Clear Cache</button>
+        </div>
+
+        <div class="results" id="results"></div>
+
+        <div id="console">
+            <div class="console-line console-info"><strong>Console Output:</strong></div>
+        </div>
+    </div>
+
+    <script src="api-realtime.js"></script>
+    <script>
+        const api = new RealTimeStockAPI();
+        const results = document.getElementById('results');
+        const consoleEl = document.getElementById('console');
+
+        // Override console.log to show in page
+        const originalLog = console.log;
+        const originalError = console.error;
+
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            logToPage('info', args.join(' '));
+        };
+
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            logToPage('error', args.join(' '));
+        };
+
+        function logToPage(type, message) {
+            const line = document.createElement('div');
+            line.className = `console-line console-${type}`;
+            line.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            consoleEl.appendChild(line);
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+        }
+
+        // Update current date
+        setInterval(() => {
+            document.getElementById('current-date').textContent = new Date().toLocaleString('id-ID', {
+                timeZone: 'Asia/Jakarta',
+                dateStyle: 'full',
+                timeStyle: 'medium'
+            });
+        }, 1000);
+
+        // Update market status
+        function updateMarketStatus() {
+            const status = api.getMarketStatus();
+            const statusEl = document.getElementById('market-status');
+            statusEl.textContent = status.isOpen ? '?? OPEN' : '?? CLOSED';
+            statusEl.style.color = status.isOpen ? '#10b981' : '#ef4444';
+        }
+        updateMarketStatus();
+        setInterval(updateMarketStatus, 60000);
+
+        async function testSingleStock() {
+            const btn = event.target;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> Loading...';
+
+            try {
+                console.log('Testing single stock: BBCA.JK');
+                const data = await api.fetchStockData('BBCA.JK');
+                displayStock(data);
+                console.log('? Test successful!');
+            } catch (error) {
+                console.error('? Test failed:', error.message);
+                results.innerHTML += `<div class="error">Error: ${error.message}</div>`;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Test BBCA.JK';
+            }
+        }
+
+        async function testMultipleStocks() {
+            const btn = event.target;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> Testing...';
+
+            const symbols = [
+                { symbol: '^JKSE', name: 'IHSG' },
+                { symbol: 'BBCA.JK', name: 'BBCA' },
+                { symbol: 'TLKM.JK', name: 'TLKM' },
+                { symbol: 'ASII.JK', name: 'ASII' },
+                { symbol: 'BBRI.JK', name: 'BBRI' }
+            ];
+
+            try {
+                console.log('Testing batch fetch of 5 stocks...');
+                const batchResults = await api.fetchBatch(symbols);
+                
+                batchResults.forEach(result => {
+                    if (result.success) {
+                        displayStock(result.data);
+                    } else {
+                        results.innerHTML += `<div class="error">${result.info.symbol}: ${result.error}</div>`;
+                    }
+                });
+
+                console.log('? Batch test complete!');
+            } catch (error) {
+                console.error('? Batch test failed:', error.message);
+                results.innerHTML += `<div class="error">Batch Error: ${error.message}</div>`;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Test 5 Stocks';
+            }
+        }
+
+        function displayStock(data) {
+            const isPositive = data.change >= 0;
+            const changeClass = isPositive ? 'positive' : 'negative';
+            const changeSymbol = isPositive ? '?' : '?';
+            
+            const badge = data.fetchTime && (Date.now() - data.fetchTime.getTime()) < 10000 
+                ? '<span class="badge badge-real">LIVE</span>'
+                : '<span class="badge badge-cache">CACHED</span>';
+
+            const card = `
+                <div class="stock-card">
+                    <div class="stock-header">
+                        <div>
+                            <div class="stock-symbol">${data.symbol} ${badge}</div>
+                            <div style="font-size: 0.875rem; color: #94a3b8;">${data.exchangeName}</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="stock-price">${formatCurrency(data.price)}</div>
+                            <div class="stock-change ${changeClass}">
+                                ${changeSymbol} ${formatCurrency(Math.abs(data.change))} (${isPositive ? '+' : ''}${data.changePercent.toFixed(2)}%)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stock-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Open</div>
+                            <div class="meta-value">${formatCurrency(data.open)}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">High</div>
+                            <div class="meta-value">${formatCurrency(data.high)}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Low</div>
+                            <div class="meta-value">${formatCurrency(data.low)}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Volume</div>
+                            <div class="meta-value">${formatVolume(data.volume)}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Previous Close</div>
+                            <div class="meta-value">${formatCurrency(data.previousClose)}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Last Update</div>
+                            <div class="meta-value">${data.timestamp.toLocaleTimeString()}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Data Source</div>
+                            <div class="meta-value" style="color: #10b981;">${data.source}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Mock Data?</div>
+                            <div class="meta-value" style="color: ${data.isMock ? '#ef4444' : '#10b981'};">
+                                ${data.isMock ? '? YES' : '? NO'}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            results.innerHTML = card + results.innerHTML;
+        }
+
+        function formatCurrency(value) {
+            if (typeof value !== 'number') return '-';
+            return value.toLocaleString('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function formatVolume(value) {
+            if (!value) return '-';
+            if (value >= 1000000000) return (value / 1000000000).toFixed(2) + 'B';
+            if (value >= 1000000) return (value / 1000000).toFixed(2) + 'M';
+            if (value >= 1000) return (value / 1000).toFixed(2) + 'K';
+            return value.toString();
+        }
+
+        function clearResults() {
+            results.innerHTML = '';
+            console.log('Results cleared');
+        }
+
+        function clearCache() {
+            api.clearCache();
+            console.log('? Cache cleared - next fetch will be fresh API call');
+        }
+
+        // Initial API status
+        console.log('API Status:', api.getAPIStatus());
+    </script>
+</body>
+</html>
