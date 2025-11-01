@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- TradingView Lightweight Charts -->
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 <body data-theme="light">
     
@@ -196,6 +198,115 @@
                     <div class="market-change positive" id="change-asii">-</div>
                     <div class="market-time" id="time-asii">-</div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stock Screener -->
+    <section class="screener-section" id="screener">
+        <div class="container-fluid">
+            <div class="section-head">
+                <div>
+                    <h2>Stock Screener</h2>
+                    <p>Filter dan analisis 800+ saham BEI dengan tools profesional</p>
+                </div>
+                <div class="screener-controls">
+                    <input type="text" id="stockSearch" class="search-input" placeholder="Cari saham atau emiten...">
+                    <select id="sectorFilter" class="filter-select">
+                        <option value="">Semua Sektor</option>
+                        <option value="finance">Finance</option>
+                        <option value="consumer">Consumer</option>
+                        <option value="infrastructure">Infrastructure</option>
+                        <option value="basic-materials">Basic Materials</option>
+                        <option value="technology">Technology</option>
+                    </select>
+                    <button class="btn btn-outline" id="resetFilters">Reset</button>
+                </div>
+            </div>
+
+            <!-- Stock Table -->
+            <div class="table-container">
+                <table class="stock-table" id="stockTable">
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-sort="symbol">
+                                <span>Symbol</span>
+                                <svg class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 15l5 5 5-5M7 9l5-5 5 5"/>
+                                </svg>
+                            </th>
+                            <th class="sortable" data-sort="name">
+                                <span>Company Name</span>
+                                <svg class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 15l5 5 5-5M7 9l5-5 5 5"/>
+                                </svg>
+                            </th>
+                            <th class="sortable" data-sort="price">
+                                <span>Price</span>
+                                <svg class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 15l5 5 5-5M7 9l5-5 5 5"/>
+                                </svg>
+                            </th>
+                            <th class="sortable" data-sort="change">
+                                <span>Change</span>
+                                <svg class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 15l5 5 5-5M7 9l5-5 5 5"/>
+                                </svg>
+                            </th>
+                            <th class="sortable" data-sort="changePercent">
+                                <span>Change %</span>
+                                <svg class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 15l5 5 5-5M7 9l5-5 5 5"/>
+                                </svg>
+                            </th>
+                            <th class="sortable" data-sort="volume">
+                                <span>Volume</span>
+                                <svg class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 15l5 5 5-5M7 9l5-5 5 5"/>
+                                </svg>
+                            </th>
+                            <th class="sortable" data-sort="marketCap">
+                                <span>Market Cap</span>
+                                <svg class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 15l5 5 5-5M7 9l5-5 5 5"/>
+                                </svg>
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stockTableBody">
+                        <tr class="loading-row">
+                            <td colspan="8" style="text-align: center; padding: 3rem;">
+                                <div class="loading-spinner"></div>
+                                <p style="margin-top: 1rem; color: var(--text-tertiary);">Loading stock data...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Chart Section -->
+    <section class="chart-section" id="chart">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <h2>Interactive Chart</h2>
+                    <p>Analisis teknikal dengan TradingView chart</p>
+                </div>
+                <div class="chart-controls">
+                    <select id="chartStock" class="filter-select">
+                        <option value="^JKSE">IHSG - IDX Composite</option>
+                        <option value="BBCA.JK">BBCA - Bank Central Asia</option>
+                        <option value="TLKM.JK">TLKM - Telkom Indonesia</option>
+                        <option value="ASII.JK">ASII - Astra International</option>
+                        <option value="BBRI.JK">BBRI - Bank Rakyat Indonesia</option>
+                    </select>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <div id="tradingview-chart" style="height: 500px;"></div>
             </div>
         </div>
     </section>
