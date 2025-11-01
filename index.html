@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InStrategic - Platform Market Insight Saham Indonesia</title>
+    <meta name="description" content="Platform analisis saham Indonesia terlengkap dengan data fundamental, valuasi, dan insight pasar yang mudah dipahami investor ritel.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="10" fill="url(#logo-gradient)"/>
+                            <path d="M12 12V28M20 16V28M28 20V28" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="logo-gradient" x1="0" y1="0" x2="40" y2="40">
+                                    <stop offset="0%" stop-color="#6800FC"/>
+                                    <stop offset="100%" stop-color="#9D4EDD"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="logo-text">InStrategic</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#beranda">Beranda</a></li>
+                    <li><a href="#saham">Analisis Saham</a></li>
+                    <li><a href="#sektor">Sektor</a></li>
+                    <li><a href="#portofolio">Portofolio</a></li>
+                    <li><a href="#insight">Market Insight</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="btn-secondary">Masuk</button>
+                    <button class="btn-primary">Coba Premium</button>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-gradient"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-icon">?</span>
+                    <span>Platform #1 Market Insight Saham Indonesia</span>
+                </div>
+                <h1 class="hero-title">
+                    Analisis Saham Indonesia<br>
+                    <span class="gradient-text">Lebih Cerdas & Visual</span>
+                </h1>
+                <p class="hero-description">
+                    Pahami nilai sebenarnya dari saham BEI dengan data fundamental, valuasi real-time, 
+                    dan insight yang disajikan secara visual ? tanpa perlu membaca laporan keuangan yang rumit.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn-primary btn-large">
+                        <span>Mulai Gratis</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <button class="btn-glass btn-large">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2"/>
+                            <path d="M8 10L10 12L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>Lihat Demo</span>
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">800+</div>
+                        <div class="stat-label">Emiten BEI</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Investor Aktif</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">Real-time</div>
+                        <div class="stat-label">Data Update</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Overview -->
+    <section class="market-overview">
+        <div class="container">
+            <div class="market-header">
+                <div>
+                    <h2 class="section-title">Pasar Hari Ini</h2>
+                    <p class="section-subtitle">Update real-time Bursa Efek Indonesia</p>
+                </div>
+                <div class="market-time">
+                    <span class="live-indicator"></span>
+                    <span>Dibuka ? 09:00 - 16:00 WIB</span>
+                </div>
+            </div>
+
+            <div class="market-cards">
+                <div class="glass-card market-card">
+                    <div class="market-card-header">
+                        <div>
+                            <h3>IHSG</h3>
+                            <p>Indeks Harga Saham Gabungan</p>
+                        </div>
+                        <div class="index-change positive">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 14L12 9L17 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="market-card-value">
+                        <span class="value">7,245.32</span>
+                        <span class="change positive">+48.25 (+0.67%)</span>
+                    </div>
+                    <div class="mini-chart" id="ihsg-chart"></div>
+                </div>
+
+                <div class="glass-card market-card">
+                    <div class="market-card-header">
+                        <div>
+                            <h3>LQ45</h3>
+                            <p>45 Saham Paling Likuid</p>
+                        </div>
+                        <div class="index-change positive">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 14L12 9L17 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="market-card-value">
+                        <span class="value">1,034.89</span>
+                        <span class="change positive">+12.45 (+1.22%)</span>
+                    </div>
+                    <div class="mini-chart" id="lq45-chart"></div>
+                </div>
+
+                <div class="glass-card market-card">
+                    <div class="market-card-header">
+                        <div>
+                            <h3>IDX30</h3>
+                            <p>30 Saham Blue Chip</p>
+                        </div>
+                        <div class="index-change negative">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="market-card-value">
+                        <span class="value">512.67</span>
+                        <span class="change negative">-3.21 (-0.62%)</span>
+                    </div>
+                    <div class="mini-chart" id="idx30-chart"></div>
+                </div>
+
+                <div class="glass-card market-card">
+                    <div class="market-card-header">
+                        <div>
+                            <h3>Volume</h3>
+                            <p>Total Transaksi Hari Ini</p>
+                        </div>
+                    </div>
+                    <div class="market-card-value">
+                        <span class="value">28.4M</span>
+                        <span class="change-label">Lot</span>
+                    </div>
+                    <div class="volume-bar">
+                        <div class="volume-fill" style="width: 65%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stock Search & Filter -->
+    <section class="stock-search">
+        <div class="container">
+            <div class="search-header">
+                <h2 class="section-title">Temukan Saham Terbaik</h2>
+                <p class="section-subtitle">Analisis 800+ emiten BEI dengan filter cerdas</p>
+            </div>
+
+            <div class="search-box-container">
+                <div class="glass-card search-box">
+                    <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+                        <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <input type="text" placeholder="Cari saham, sektor, atau emiten... (contoh: BBCA, TLKM, Banking)" id="stock-search-input">
+                    <button class="search-btn">
+                        <span>Cari</span>
+                    </button>
+                </div>
+
+                <div class="filter-chips">
+                    <button class="chip active" data-filter="semua">Semua</button>
+                    <button class="chip" data-filter="top-gainer">Top Gainer</button>
+                    <button class="chip" data-filter="top-loser">Top Loser</button>
+                    <button class="chip" data-filter="most-active">Paling Aktif</button>
+                    <button class="chip" data-filter="undervalued">Undervalued</button>
+                    <button class="chip" data-filter="dividend">Dividen Tinggi</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Stocks -->
+    <section class="top-stocks">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Saham Terpopuler Hari Ini</h2>
+                    <p class="section-subtitle">Paling banyak dilihat & dianalisis investor</p>
+                </div>
+                <button class="btn-text">
+                    <span>Lihat Semua</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="stocks-grid">
+                <!-- Stock Card 1 -->
+                <div class="glass-card stock-card">
+                    <div class="stock-card-header">
+                        <div class="stock-info">
+                            <div class="stock-logo" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">BB</div>
+                            <div>
+                                <h3 class="stock-ticker">BBCA</h3>
+                                <p class="stock-name">Bank Central Asia</p>
+                            </div>
+                        </div>
+                        <div class="stock-price-info">
+                            <div class="stock-price">Rp 10.375</div>
+                            <div class="stock-change positive">+125 (+1.22%)</div>
+                        </div>
+                    </div>
+
+                    <div class="stock-scores">
+                        <div class="score-item">
+                            <div class="score-label">Value</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 85%; background: #00C853;"></div>
+                            </div>
+                            <div class="score-value">85</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Growth</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 78%; background: #00C853;"></div>
+                            </div>
+                            <div class="score-value">78</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Health</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 92%; background: #00C853;"></div>
+                            </div>
+                            <div class="score-value">92</div>
+                        </div>
+                    </div>
+
+                    <div class="stock-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Market Cap</span>
+                            <span class="metric-value">Rp 1.2T</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">P/E Ratio</span>
+                            <span class="metric-value">18.5x</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Dividend</span>
+                            <span class="metric-value">2.8%</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-card-action">
+                        <span>Lihat Analisis Lengkap</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Stock Card 2 -->
+                <div class="glass-card stock-card">
+                    <div class="stock-card-header">
+                        <div class="stock-info">
+                            <div class="stock-logo" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">TL</div>
+                            <div>
+                                <h3 class="stock-ticker">TLKM</h3>
+                                <p class="stock-name">Telkom Indonesia</p>
+                            </div>
+                        </div>
+                        <div class="stock-price-info">
+                            <div class="stock-price">Rp 4.120</div>
+                            <div class="stock-change negative">-40 (-0.96%)</div>
+                        </div>
+                    </div>
+
+                    <div class="stock-scores">
+                        <div class="score-item">
+                            <div class="score-label">Value</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 72%; background: #00C853;"></div>
+                            </div>
+                            <div class="score-value">72</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Growth</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 65%; background: #FFB300;"></div>
+                            </div>
+                            <div class="score-value">65</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Health</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 88%; background: #00C853;"></div>
+                            </div>
+                            <div class="score-value">88</div>
+                        </div>
+                    </div>
+
+                    <div class="stock-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Market Cap</span>
+                            <span class="metric-value">Rp 408B</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">P/E Ratio</span>
+                            <span class="metric-value">15.2x</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Dividend</span>
+                            <span class="metric-value">3.5%</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-card-action">
+                        <span>Lihat Analisis Lengkap</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Stock Card 3 -->
+                <div class="glass-card stock-card">
+                    <div class="stock-card-header">
+                        <div class="stock-info">
+                            <div class="stock-logo" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">AS</div>
+                            <div>
+                                <h3 class="stock-ticker">ASII</h3>
+                                <p class="stock-name">Astra International</p>
+                            </div>
+                        </div>
+                        <div class="stock-price-info">
+                            <div class="stock-price">Rp 5.450</div>
+                            <div class="stock-change positive">+75 (+1.39%)</div>
+                        </div>
+                    </div>
+
+                    <div class="stock-scores">
+                        <div class="score-item">
+                            <div class="score-label">Value</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 68%; background: #FFB300;"></div>
+                            </div>
+                            <div class="score-value">68</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Growth</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 75%; background: #00C853;"></div>
+                            </div>
+                            <div class="score-value">75</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Health</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 82%; background: #00C853;"></div>
+                            </div>
+                            <div class="score-value">82</div>
+                        </div>
+                    </div>
+
+                    <div class="stock-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Market Cap</span>
+                            <span class="metric-value">Rp 167B</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">P/E Ratio</span>
+                            <span class="metric-value">12.8x</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Dividend</span>
+                            <span class="metric-value">4.2%</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-card-action">
+                        <span>Lihat Analisis Lengkap</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Stock Card 4 -->
+                <div class="glass-card stock-card">
+                    <div class="stock-card-header">
+                        <div class="stock-info">
+                            <div class="stock-logo" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">UN</div>
+                            <div>
+                                <h3 class="stock-ticker">UNVR</h3>
+                                <p class="stock-name">Unilever Indonesia</p>
+                            </div>
+                        </div>
+                        <div class="stock-price-info">
+                            <div class="stock-price">Rp 2.890</div>
+                            <div class="stock-change positive">+25 (+0.87%)</div>
+                        </div>
+                    </div>
+
+                    <div class="stock-scores">
+                        <div class="score-item">
+                            <div class="score-label">Value</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 58%; background: #FFB300;"></div>
+                            </div>
+                            <div class="score-value">58</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Growth</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 62%; background: #FFB300;"></div>
+                            </div>
+                            <div class="score-value">62</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Health</div>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 90%; background: #00C853;"></div>
+                            </div>
+                            <div class="score-value">90</div>
+                        </div>
+                    </div>
+
+                    <div class="stock-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Market Cap</span>
+                            <span class="metric-value">Rp 68B</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">P/E Ratio</span>
+                            <span class="metric-value">28.5x</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Dividend</span>
+                            <span class="metric-value">5.1%</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-card-action">
+                        <span>Lihat Analisis Lengkap</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sector Analysis -->
+    <section class="sector-analysis">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Analisis Sektor</h2>
+                    <p class="section-subtitle">Performa sektor di Bursa Efek Indonesia</p>
+                </div>
+            </div>
+
+            <div class="sector-grid">
+                <div class="glass-card sector-card">
+                    <div class="sector-icon">??</div>
+                    <h3 class="sector-name">Perbankan</h3>
+                    <div class="sector-performance positive">+2.45%</div>
+                    <div class="sector-stocks">48 Saham</div>
+                    <div class="sector-mini-chart"></div>
+                </div>
+
+                <div class="glass-card sector-card">
+                    <div class="sector-icon">??</div>
+                    <h3 class="sector-name">Telekomunikasi</h3>
+                    <div class="sector-performance negative">-0.82%</div>
+                    <div class="sector-stocks">12 Saham</div>
+                    <div class="sector-mini-chart"></div>
+                </div>
+
+                <div class="glass-card sector-card">
+                    <div class="sector-icon">?</div>
+                    <h3 class="sector-name">Energi</h3>
+                    <div class="sector-performance positive">+1.67%</div>
+                    <div class="sector-stocks">35 Saham</div>
+                    <div class="sector-mini-chart"></div>
+                </div>
+
+                <div class="glass-card sector-card">
+                    <div class="sector-icon">??</div>
+                    <h3 class="sector-name">Manufaktur</h3>
+                    <div class="sector-performance positive">+0.92%</div>
+                    <div class="sector-stocks">156 Saham</div>
+                    <div class="sector-mini-chart"></div>
+                </div>
+
+                <div class="glass-card sector-card">
+                    <div class="sector-icon">??</div>
+                    <h3 class="sector-name">Konsumer</h3>
+                    <div class="sector-performance positive">+1.23%</div>
+                    <div class="sector-stocks">89 Saham</div>
+                    <div class="sector-mini-chart"></div>
+                </div>
+
+                <div class="glass-card sector-card">
+                    <div class="sector-icon">???</div>
+                    <h3 class="sector-name">Properti</h3>
+                    <div class="sector-performance negative">-1.15%</div>
+                    <div class="sector-stocks">72 Saham</div>
+                    <div class="sector-mini-chart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-header">
+                <h2 class="section-title">Kenapa Memilih InStrategic?</h2>
+                <p class="section-subtitle">Platform analisis saham paling lengkap & mudah dipahami</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="rgba(104, 0, 252, 0.1)"/>
+                            <path d="M16 24L22 30L32 18" stroke="#6800FC" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Analisis Visual & Mudah</h3>
+                    <p class="feature-description">
+                        Semua data fundamental disajikan dalam bentuk grafik, skor, dan infografik yang mudah dipahami tanpa harus membaca laporan keuangan.
+                    </p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="rgba(104, 0, 252, 0.1)"/>
+                            <circle cx="24" cy="24" r="8" stroke="#6800FC" stroke-width="3"/>
+                            <path d="M24 16V24L28 28" stroke="#6800FC" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Data Real-time</h3>
+                    <p class="feature-description">
+                        Update harga saham, volume, dan indeks secara real-time langsung dari Bursa Efek Indonesia.
+                    </p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="rgba(104, 0, 252, 0.1)"/>
+                            <path d="M16 28L24 20L28 24L32 16" stroke="#6800FC" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Screening Cerdas</h3>
+                    <p class="feature-description">
+                        Filter saham berdasarkan valuasi, dividen, growth, kesehatan keuangan, dan berbagai metrik fundamental lainnya.
+                    </p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="rgba(104, 0, 252, 0.1)"/>
+                            <rect x="14" y="18" width="20" height="16" rx="2" stroke="#6800FC" stroke-width="3"/>
+                            <path d="M20 18V14C20 12.8954 20.8954 12 22 12H26C27.1046 12 28 12.8954 28 14V18" stroke="#6800FC" stroke-width="3"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Portfolio Tracking</h3>
+                    <p class="feature-description">
+                        Pantau performa portofolio Anda secara otomatis dengan analisis return, diversifikasi, dan risk management.
+                    </p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="rgba(104, 0, 252, 0.1)"/>
+                            <circle cx="24" cy="20" r="6" stroke="#6800FC" stroke-width="3"/>
+                            <path d="M14 34C14 29.5817 17.5817 26 22 26H26C30.4183 26 34 29.5817 34 34" stroke="#6800FC" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Market Insight Harian</h3>
+                    <p class="feature-description">
+                        Dapatkan insight eksklusif tentang pergerakan pasar, analisis sektor, dan rekomendasi dari tim analis kami.
+                    </p>
+                </div>
+
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect width="48" height="48" rx="12" fill="rgba(104, 0, 252, 0.1)"/>
+                            <path d="M16 24H20L24 16L28 32L32 24" stroke="#6800FC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Valuasi Otomatis</h3>
+                    <p class="feature-description">
+                        Sistem valuasi otomatis menggunakan DCF, P/E, P/B, dan berbagai metode lainnya untuk menentukan fair value saham.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="glass-card cta-card">
+                <div class="cta-content">
+                    <div class="cta-badge">
+                        <span>??</span>
+                        <span>Premium Access</span>
+                    </div>
+                    <h2 class="cta-title">Tingkatkan Analisis Anda ke Level Premium</h2>
+                    <p class="cta-description">
+                        Dapatkan akses penuh ke semua fitur analisis mendalam, data real-time, portfolio tracking otomatis, 
+                        dan market insight eksklusif dari tim analis InStrategic.
+                    </p>
+                    <div class="cta-features">
+                        <div class="cta-feature-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 12L11 14L15 10" stroke="#00C853" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="12" cy="12" r="10" stroke="#00C853" stroke-width="2"/>
+                            </svg>
+                            <span>800+ Analisis Saham Lengkap</span>
+                        </div>
+                        <div class="cta-feature-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 12L11 14L15 10" stroke="#00C853" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="12" cy="12" r="10" stroke="#00C853" stroke-width="2"/>
+                            </svg>
+                            <span>Data Real-time & Historical</span>
+                        </div>
+                        <div class="cta-feature-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 12L11 14L15 10" stroke="#00C853" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="12" cy="12" r="10" stroke="#00C853" stroke-width="2"/>
+                            </svg>
+                            <span>Portfolio Analytics</span>
+                        </div>
+                        <div class="cta-feature-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 12L11 14L15 10" stroke="#00C853" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="12" cy="12" r="10" stroke="#00C853" stroke-width="2"/>
+                            </svg>
+                            <span>Insight Harian Eksklusif</span>
+                        </div>
+                    </div>
+                    <div class="cta-actions">
+                        <button class="btn-primary btn-large">
+                            <span>Mulai Premium - Rp 99.000/bulan</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                        <button class="btn-text">
+                            <span>Lihat Paket Lainnya</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="cta-visual">
+                    <div class="floating-card card-1">
+                        <div class="mini-stock-card">
+                            <div class="mini-ticker">BBCA</div>
+                            <div class="mini-price positive">+2.45%</div>
+                        </div>
+                    </div>
+                    <div class="floating-card card-2">
+                        <div class="mini-stock-card">
+                            <div class="mini-ticker">TLKM</div>
+                            <div class="mini-price negative">-0.82%</div>
+                        </div>
+                    </div>
+                    <div class="floating-card card-3">
+                        <div class="mini-stock-card">
+                            <div class="mini-ticker">ASII</div>
+                            <div class="mini-price positive">+1.67%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" rx="10" fill="url(#logo-gradient-footer)"/>
+                                <path d="M12 12V28M20 16V28M28 20V28" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                                <defs>
+                                    <linearGradient id="logo-gradient-footer" x1="0" y1="0" x2="40" y2="40">
+                                        <stop offset="0%" stop-color="#6800FC"/>
+                                        <stop offset="100%" stop-color="#9D4EDD"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <span class="logo-text">InStrategic</span>
+                    </div>
+                    <p class="footer-description">
+                        Platform Market Insight Saham Indonesia yang membantu investor ritel memahami, 
+                        menganalisis, dan memantau saham BEI secara visual dan mudah dipahami.
+                    </p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Produk</h4>
+                        <ul>
+                            <li><a href="#saham">Analisis Saham</a></li>
+                            <li><a href="#sektor">Analisis Sektor</a></li>
+                            <li><a href="#portofolio">Portfolio Tracker</a></li>
+                            <li><a href="#insight">Market Insight</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Perusahaan</h4>
+                        <ul>
+                            <li><a href="#tentang">Tentang Kami</a></li>
+                            <li><a href="#blog">Blog & Edukasi</a></li>
+                            <li><a href="#karir">Karir</a></li>
+                            <li><a href="#kontak">Kontak</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#privacy">Kebijakan Privasi</a></li>
+                            <li><a href="#terms">Syarat & Ketentuan</a></li>
+                            <li><a href="#disclaimer">Disclaimer</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Ikuti Kami</h4>
+                        <div class="social-links">
+                            <a href="#" class="social-link">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="social-link">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="social-link">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 InStrategic. All rights reserved.</p>
+                <p class="disclaimer-text">
+                    Disclaimer: InStrategic bukan penasihat investasi. Semua informasi disajikan untuk tujuan edukatif. 
+                    Keputusan investasi adalah tanggung jawab masing-masing investor.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
