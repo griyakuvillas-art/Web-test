@@ -3,16 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Platform analisis saham Indonesia dengan data real-time, fundamental analysis, dan portfolio tracking">
-    <title>InStrategic - Platform Analisis Saham Indonesia Terbaik</title>
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.finance.yahoo.com https://query1.finance.yahoo.com https://query2.finance.yahoo.com https://financialmodelingprep.com https://www.alphavantage.co; img-src 'self' data: https:; frame-ancestors 'none'; base-uri 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="Platform analisis saham Indonesia terlengkap dengan data real-time BEI, stock screener profesional, TradingView charts, dan fundamental analysis untuk 25+ saham IDX. Update November 2024.">
+    <meta name="keywords" content="saham indonesia, bursa efek indonesia, analisis saham, stock screener, IHSG, BEI, investasi saham, portfolio tracking, real-time stock data">
+    <meta name="author" content="InStrategic Team">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://instrategic.com">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://instrategic.com">
+    <meta property="og:title" content="InStrategic - Platform Analisis Saham Indonesia Real-time">
+    <meta property="og:description" content="Analisis 25+ saham BEI dengan data real-time, stock screener profesional, dan TradingView charts. Platform investasi terlengkap untuk investor Indonesia.">
+    <meta property="og:image" content="https://instrategic.com/og-image.jpg">
+    <meta property="og:site_name" content="InStrategic">
+    <meta property="og:locale" content="id_ID">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://instrategic.com">
+    <meta name="twitter:title" content="InStrategic - Platform Analisis Saham Indonesia">
+    <meta name="twitter:description" content="Analisis saham BEI dengan data real-time dan tools profesional">
+    <meta name="twitter:image" content="https://instrategic.com/twitter-image.jpg">
+    <title>InStrategic - Platform Analisis Saham Indonesia Real-time | Stock Screener BEI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- TradingView Lightweight Charts -->
-    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" as="style">
+    
+    <!-- DNS Prefetch for External Resources -->
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://query1.finance.yahoo.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
+    <!-- TradingView Lightweight Charts (Deferred) -->
+    <script defer src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FinancialService",
+      "name": "InStrategic",
+      "description": "Platform analisis saham Indonesia dengan data real-time",
+      "url": "https://instrategic.com",
+      "logo": "https://instrategic.com/logo.png",
+      "sameAs": [
+        "https://twitter.com/instrategic",
+        "https://linkedin.com/company/instrategic"
+      ],
+      "areaServed": {
+        "@type": "Country",
+        "name": "Indonesia"
+      },
+      "serviceType": "Stock Market Analysis Platform"
+    }
+    </script>
 </head>
 <body data-theme="light">
+    <!-- Skip to Main Content (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     
     <!-- Theme Toggle -->
     <div class="theme-switch">
@@ -73,7 +135,7 @@
     </div>
 
     <!-- Hero -->
-    <section class="hero">
+    <section class="hero" id="main-content">
         <div class="container">
             <div class="hero-content">
                 <div class="badge">Platform Analisis Saham Indonesia #1</div>
@@ -211,8 +273,10 @@
                     <p>Filter dan analisis 800+ saham BEI dengan tools profesional</p>
                 </div>
                 <div class="screener-controls">
-                    <input type="text" id="stockSearch" class="search-input" placeholder="Cari saham atau emiten...">
-                    <select id="sectorFilter" class="filter-select">
+                    <label for="stockSearch" class="sr-only">Search stocks</label>
+                    <input type="text" id="stockSearch" class="search-input" placeholder="Cari saham atau emiten..." autocomplete="off" aria-label="Search stocks by symbol or company name">
+                    <label for="sectorFilter" class="sr-only">Filter by sector</label>
+                    <select id="sectorFilter" class="filter-select" aria-label="Filter stocks by sector">
                         <option value="">Semua Sektor</option>
                         <option value="finance">Finance</option>
                         <option value="consumer">Consumer</option>
@@ -591,6 +655,8 @@
         </div>
     </footer>
 
+    <script src="utils.js"></script>
+    <script src="api-enhanced.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

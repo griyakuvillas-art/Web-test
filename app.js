@@ -8,7 +8,7 @@ console.log('%c InStrategic v3.0 ', 'background: linear-gradient(135deg, #6366F1
 // === CONFIGURATION ===
 const CONFIG = {
     apiTimeout: 5000,
-    refreshInterval: 30000,
+    refreshInterval: 15000, // 15 seconds for more real-time updates
     statusCheckInterval: 10000,
     stockSymbols: [
         { symbol: '^JKSE', name: 'IHSG', displayName: 'IDX Composite', sector: 'index' },
@@ -79,11 +79,18 @@ class ThemeManager {
     }
 }
 
-// === API CLIENT ===
+// === API CLIENT (Use Enhanced API if available) ===
 class StockAPI {
     constructor() {
+        // Use EnhancedStockAPI if available, otherwise fallback
+        if (typeof EnhancedStockAPI !== 'undefined') {
+            Logger.info('Using EnhancedStockAPI for better reliability');
+            return new EnhancedStockAPI();
+        }
+        
+        Logger.warn('EnhancedStockAPI not found, using fallback');
         this.cache = new Map();
-        this.cacheTimeout = 30000;
+        this.cacheTimeout = 15000; // 15 seconds
     }
 
     async fetchWithTimeout(url, timeout = CONFIG.apiTimeout) {
@@ -601,54 +608,126 @@ class App {
     }
 
     async init() {
-        console.log('Initializing InStrategic v3.0...');
-        
-        await this.loadAllData();
-        
-        this.ui.updateMarketStatus();
-        
-        this.attachEventListeners();
-        
-        await this.chartManager.init();
-        window.chartManager = this.chartManager;
-        
-        this.startAutoRefresh();
-        
-        console.log('InStrategic v3.0 initialized!');
+        try {
+            Logger.info('Initializing InStrategic v3.0...');
+            PerformanceUtils.measurePerformance('init-start');
+            
+            await this.loadAllData();
+            
+            this.ui.updateMarketStatus();
+            
+            this.attachEventListeners();
+            
+            // Initialize chart with error handling
+            try {
+                await this.chartManager.init();
+                window.chartManager = this.chartManager;
+            } catch (error) {
+                Logger.error('Chart initialization failed:', error);
+                // Continue without chart - not critical
+            }
+            
+            this.startAutoRefresh();
+            
+            PerformanceUtils.measurePerformance('init-end');
+            
+            // Log performance metrics
+            setTimeout(() => {
+                const timing = PerformanceUtils.getPerformanceTiming();
+                if (timing) {
+                    Logger.info('Performance Metrics:', timing);
+                }
+            }, 1000);
+            
+            Logger.info('InStrategic v3.0 initialized successfully!');
+        } catch (error) {
+            Logger.error('Critical initialization error:', error);
+            ErrorHandler.handle(error, 'Application initialization');
+        }
     }
 
     async loadAllData() {
-        // Load market cards
-        const mainStocks = CONFIG.stockSymbols.slice(0, 4);
-        const promises = mainStocks.map(async (stockInfo) => {
-            const data = await this.api.fetchStockData(stockInfo.symbol);
-            this.ui.updateMarketCard(stockInfo, data);
-            return { info: stockInfo, data };
-        });
+        try {
+            PerformanceUtils.measurePerformance('loadAllData-start');
+            
+            // Load market cards with error handling
+            const mainStocks = CONFIG.stockSymbols.slice(0, 4);
+            const promises = mainStocks.map(async (stockInfo) => {
+                try {
+                    const data = await this.api.fetchStockData(stockInfo.symbol);
+                    this.ui.updateMarketCard(stockInfo, data);
+                    return { info: stockInfo, data };
+                } catch (error) {
+                    Logger.error(`Failed to load ${stockInfo.symbol}:`, error);
+                    ErrorHandler.handle(error, `Loading ${stockInfo.symbol}`);
+                    // Return fallback data
+                    return { 
+                        info: stockInfo, 
+                        data: this.api.getFallbackData ? 
+                              this.api.getFallbackData(stockInfo.symbol) : 
+                              this.api.getMarketAwareSimulation(stockInfo.symbol)
+                    };
+                }
+            });
 
-        const results = await Promise.all(promises);
-        this.ui.updateTicker(results);
+            const results = await Promise.all(promises);
+            this.ui.updateTicker(results);
 
-        // Load stock table
-        await this.tableManager.loadTableData();
+            // Load stock table with error boundary
+            try {
+                await this.tableManager.loadTableData();
+            } catch (error) {
+                Logger.error('Failed to load stock table:', error);
+                ErrorHandler.handle(error, 'Loading stock table');
+            }
+            
+            PerformanceUtils.measurePerformance('loadAllData-end');
+            Logger.info('All data loaded successfully');
+        } catch (error) {
+            Logger.error('Critical error in loadAllData:', error);
+            ErrorHandler.handle(error, 'Loading market data');
+        }
     }
 
     attachEventListeners() {
-        // Search functionality
+        // Search functionality with sanitization
         const searchInput = document.getElementById('stockSearch');
         if (searchInput) {
+            // Use debounced search for better performance
+            const debouncedSearch = PerformanceUtils.debounce((value, sector) => {
+                // Sanitize input to prevent XSS
+                const sanitized = SecurityUtils.sanitizeSearchInput(value);
+                
+                // Rate limit check
+                if (!SecurityUtils.rateLimitCheck('search', 30, 10000)) {
+                    Logger.warn('Search rate limit exceeded');
+                    return;
+                }
+                
+                this.tableManager.filterTable(sanitized, sector);
+            }, 300);
+            
             searchInput.addEventListener('input', (e) => {
                 const sector = document.getElementById('sectorFilter').value;
-                this.tableManager.filterTable(e.target.value, sector);
+                debouncedSearch(e.target.value, sector);
             });
         }
 
-        // Sector filter
+        // Sector filter with validation
         const sectorFilter = document.getElementById('sectorFilter');
         if (sectorFilter) {
             sectorFilter.addEventListener('change', (e) => {
-                const search = document.getElementById('stockSearch').value;
-                this.tableManager.filterTable(search, e.target.value);
+                // Validate sector value
+                const sector = e.target.value;
+                if (!SecurityUtils.isValidSector(sector)) {
+                    Logger.error('Invalid sector value:', sector);
+                    return;
+                }
+                
+                const search = SecurityUtils.sanitizeSearchInput(
+                    document.getElementById('stockSearch').value
+                );
+                this.tableManager.filterTable(search, sector);
             });
         }
 
