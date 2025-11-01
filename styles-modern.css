@@ -1014,16 +1014,64 @@ section {
 }
 
 /* ===================================
-   Responsive Design
+   Stock Logo Images
    =================================== */
+
+.stock-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: inherit;
+}
+
+.company-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-md);
+    object-fit: contain;
+    background: white;
+    padding: var(--space-2);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ===================================
+   Responsive Design - FIXED
+   =================================== */
+
+@media (max-width: 1200px) {
+    .container {
+        max-width: 100%;
+        padding: 0 var(--space-6);
+    }
+    
+    .stocks-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
 
 @media (max-width: 1024px) {
     :root {
         font-size: 15px;
     }
     
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
     .footer-content {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .cta-card {
+        grid-template-columns: 1fr;
+    }
+    
+    .market-cards {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 }
 
@@ -1036,18 +1084,58 @@ section {
         display: none;
     }
     
+    .nav-actions button:first-child {
+        display: none;
+    }
+    
+    .hero {
+        padding: calc(120px + var(--space-12)) 0 var(--space-12);
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
     .hero-actions {
         flex-direction: column;
         align-items: stretch;
+        gap: var(--space-3);
     }
     
     .hero-stats {
         grid-template-columns: 1fr;
+        gap: var(--space-6);
     }
     
-    .market-cards,
+    .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+    }
+    
+    .market-cards {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+    
     .stocks-grid {
         grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .sector-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
     
     .footer-content {
@@ -1058,6 +1146,87 @@ section {
     .theme-toggle {
         top: var(--space-4);
         right: var(--space-4);
+        padding: var(--space-1);
+    }
+    
+    .theme-toggle button {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .ticker-tape {
+        top: 65px;
+        height: 36px;
+    }
+    
+    .ticker-item {
+        padding: 0 var(--space-4);
+        font-size: 0.8125rem;
+    }
+    
+    .filter-chips {
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: var(--space-2);
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .search-box {
+        padding: var(--space-3);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 var(--space-3);
+    }
+    
+    .hero-title {
+        font-size: 1.75rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 1.75rem;
+    }
+    
+    .market-card {
+        padding: var(--space-4);
+    }
+    
+    .stock-card {
+        padding: var(--space-4);
+    }
+    
+    .stock-logo,
+    .company-logo {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .stock-ticker {
+        font-size: 1.125rem;
+    }
+    
+    .stock-price {
+        font-size: 1.5rem;
+    }
+    
+    .btn {
+        padding: var(--space-2) var(--space-4);
+        font-size: 0.875rem;
+    }
+    
+    .btn-large {
+        padding: var(--space-3) var(--space-5);
+        font-size: 0.9375rem;
+    }
+    
+    .sector-grid {
+        grid-template-columns: 1fr;
     }
 }
 
