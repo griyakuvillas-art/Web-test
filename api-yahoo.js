@@ -148,24 +148,31 @@ function formatTime(date) {
 // ===================================
 // Update UI
 // ===================================
-function updateIHSG(data) {
-    const card = document.getElementById('ihsg-card');
+function updateStockCard(stockSymbol, data) {
+    const cardId = stockSymbol.toLowerCase().replace('.jk', '') + '-card';
+    const card = document.getElementById(cardId);
     if (!card) return;
     
-    const valueEl = document.getElementById('ihsg-value');
-    const changeEl = document.getElementById('ihsg-change');
-    const timeEl = document.getElementById('ihsg-time');
-    const trendEl = document.getElementById('ihsg-trend');
+    const prefix = stockSymbol.toLowerCase().replace('.jk', '');
+    const valueEl = document.getElementById(`${prefix}-value`);
+    const changeEl = document.getElementById(`${prefix}-change`);
+    const timeEl = document.getElementById(`${prefix}-time`);
+    const trendEl = card.querySelector('.index-change');
+    
+    if (!valueEl) return;
     
     if (data.error) {
-        valueEl.textContent = 'Error loading data';
-        changeEl.textContent = 'Please refresh';
+        valueEl.textContent = 'Error loading';
+        if (changeEl) changeEl.textContent = 'Refresh';
         return;
     }
     
     valueEl.textContent = formatPrice(data.price);
-    changeEl.textContent = formatChange(data.change, data.changePercent);
-    changeEl.className = 'change ' + (data.change >= 0 ? 'positive' : 'negative');
+    
+    if (changeEl) {
+        changeEl.textContent = formatChange(data.change, data.changePercent);
+        changeEl.className = 'change ' + (data.change >= 0 ? 'positive' : 'negative');
+    }
     
     if (timeEl) {
         timeEl.textContent = 'Updated: ' + formatTime(data.time);
@@ -182,6 +189,10 @@ function updateIHSG(data) {
             );
         }
     }
+}
+
+function updateIHSG(data) {
+    updateStockCard('^JKSE', data);
 }
 
 function updateTicker(stocksData) {
@@ -270,6 +281,16 @@ async function initStockData() {
         if (ihsgData) {
             updateIHSG(ihsgData);
         }
+        
+        // Update top stocks cards
+        const bbcaData = stocksData.find(s => s.symbol === 'BBCA.JK');
+        if (bbcaData) updateStockCard('BBCA.JK', bbcaData);
+        
+        const tlkmData = stocksData.find(s => s.symbol === 'TLKM.JK');
+        if (tlkmData) updateStockCard('TLKM.JK', tlkmData);
+        
+        const asiiData = stocksData.find(s => s.symbol === 'ASII.JK');
+        if (asiiData) updateStockCard('ASII.JK', asiiData);
         
         // Update ticker tape
         updateTicker(stocksData);
