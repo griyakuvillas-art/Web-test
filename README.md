@@ -1,12 +1,12 @@
-# ?? InStrategic - Platform Market Insight Saham Indonesia
+# ?? InStrategic - Platform Wawasan Pasar Saham Indonesia
 
-![InStrategic Banner](https://img.shields.io/badge/InStrategic-Market%20Insight-6800FC?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTAiIGZpbGw9IiM2ODAwRkMiLz48cGF0aCBkPSJNMTIgMTJWMjhNMjAgMTZWMjhNMjggMjBWMjgiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+)
+![InStrategic Banner](https://img.shields.io/badge/InStrategic-Wawasan%20Pasar-6800FC?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTAiIGZpbGw9IiM2ODAwRkMiLz48cGF0aCBkPSJNMTIgMTJWMjhNMjAgMTZWMjhNMjggMjBWMjgiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+)
 ![Version](https://img.shields.io/badge/version-1.0.0-9D4EDD)
 ![License](https://img.shields.io/badge/license-MIT-00C853)
 
 ## ?? Tentang InStrategic
 
-**InStrategic** adalah platform Market Insight Saham Indonesia yang dirancang untuk membantu investor ritel memahami, menganalisis, dan memantau saham-saham di Bursa Efek Indonesia (BEI) secara mudah dan visual. 
+**InStrategic** adalah platform Wawasan Pasar Saham Indonesia yang dirancang untuk membantu investor ritel memahami, menganalisis, dan memantau saham-saham di Bursa Efek Indonesia (BEI) secara mudah dan visual. 
 
 Melalui tampilan yang modern dan interaktif dengan tema gelap futuristik, InStrategic menyajikan data fundamental, valuasi, kinerja keuangan, dan proyeksi pertumbuhan setiap emiten dalam bentuk grafik dan infografik yang sederhana ? sehingga investor tidak perlu membaca laporan keuangan yang rumit.
 
@@ -15,8 +15,8 @@ Melalui tampilan yang modern dan interaktif dengan tema gelap futuristik, InStra
 - ?? **Analisis Visual & Mudah** - Data fundamental dalam bentuk grafik, skor, dan infografik
 - ? **Data Real-time** - Update harga saham dan indeks langsung dari BEI
 - ?? **Screening Cerdas** - Filter saham berdasarkan valuasi, dividen, growth, dan kesehatan keuangan
-- ?? **Portfolio Tracking** - Pantau performa portofolio secara otomatis
-- ?? **Market Insight Harian** - Analisis pasar, sektor, dan rekomendasi dari tim analis
+- ?? **Pelacakan Portofolio** - Pantau performa portofolio secara otomatis
+- ?? **Wawasan Pasar Harian** - Analisis pasar, sektor, dan rekomendasi dari tim analis
 - ?? **Valuasi Otomatis** - Sistem valuasi menggunakan DCF, P/E, P/B, dan metode lainnya
 
 ## ?? Design System
