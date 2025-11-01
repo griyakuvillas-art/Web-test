@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InStrategic | Market Insight Saham Indonesia</title>
+    <meta
+      name="description"
+      content="InStrategic adalah platform market insight saham Indonesia dengan analisis visual, insight harian, dan alat portofolio cerdas untuk investor BEI."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div class="page-wrap">
+      <header class="top-bar">
+        <div class="logo-group">
+          <img src="assets/instrategic-logo.svg" alt="Logo InStrategic" class="logo" />
+          <span class="beta-pill">Beta Eksklusif</span>
+        </div>
+        <nav class="main-nav" aria-label="Navigasi utama">
+          <a href="#insight" class="nav-link">Insight Pasar</a>
+          <a href="#analisis" class="nav-link">Analisis Emiten</a>
+          <a href="#portfolio" class="nav-link">Portofolio</a>
+          <a href="#pricing" class="nav-link">Harga</a>
+          <a href="#about" class="nav-link">Tentang</a>
+        </nav>
+        <div class="action-group">
+          <button class="btn btn-ghost">Masuk</button>
+          <button class="btn btn-primary">Mulai Gratis</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" id="hero">
+          <div class="hero-content">
+            <div class="eyebrow">Platform Insight Saham Indonesia</div>
+            <h1>
+              Analisis <span>BEI</span> dalam satu dashboard visual, futuristik, dan real-time.
+            </h1>
+            <p>
+              InStrategic menggabungkan data IDX, OJK, dan sumber kredibel lain ke dalam insight cerdas, grafik interaktif, dan rekomendasi berbasis fakta untuk membantu investor ritel membuat keputusan yang lebih percaya diri.
+            </p>
+            <div class="hero-actions">
+              <button class="btn btn-primary">Coba Dashboard Premium</button>
+              <button class="btn btn-secondary">Lihat Demo Interaktif</button>
+            </div>
+            <div class="hero-badges">
+              <div class="badge-card">
+                <span class="badge-label">Data Resmi</span>
+                <span class="badge-value">IDX &middot; OJK &middot; BEI</span>
+              </div>
+              <div class="badge-card">
+                <span class="badge-label">Investor Terbantu</span>
+                <span class="badge-value">+48.000</span>
+              </div>
+              <div class="badge-card">
+                <span class="badge-label">Akurasi Insight</span>
+                <span class="badge-value">94%</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual" role="presentation">
+            <div class="orbital-glow"></div>
+            <div class="dashboard-preview glass-panel">
+              <header class="preview-header">
+                <div class="preview-title">Market Pulse Indonesia</div>
+                <div class="preview-time">Realtime &middot; IHSG</div>
+              </header>
+              <div class="preview-chart">
+                <div class="chart-line primary"></div>
+                <div class="chart-line accent"></div>
+              </div>
+              <div class="preview-grid">
+                <div class="preview-card">
+                  <span class="label">IHSG</span>
+                  <span class="value positive">7.312,54</span>
+                  <span class="change positive">+1,12%</span>
+                </div>
+                <div class="preview-card">
+                  <span class="label">Market Depth</span>
+                  <span class="value">61%</span>
+                  <span class="change neutral">Netr. Institusi</span>
+                </div>
+                <div class="preview-card">
+                  <span class="label">Top Gainer</span>
+                  <span class="value positive">BBRI</span>
+                  <span class="change positive">+3,42%</span>
+                </div>
+                <div class="preview-card">
+                  <span class="label">Top Loser</span>
+                  <span class="value negative">ANTM</span>
+                  <span class="change negative">-2,18%</span>
+                </div>
+              </div>
+            </div>
+            <div class="floating-card glass-panel">
+              <span class="floating-label">Sinyal Valuasi</span>
+              <div class="floating-value">
+                <span class="badge positive">Undervalued</span>
+                <span>12 Emiten</span>
+              </div>
+              <div class="sparkline">
+                <div class="spark positive"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="market-scan" id="insight">
+          <header class="section-header">
+            <h2>Market Scan Harian</h2>
+            <p>
+              Radar cerdas yang menyoroti pergerakan terbesar, anomali transaksi, dan rotasi sektor di Bursa Efek Indonesia dalam 24 jam terakhir.
+            </p>
+          </header>
+          <div class="scan-grid">
+            <article class="scan-card glass-panel">
+              <header>
+                <span class="chip">Heatmap Sektor</span>
+                <span class="timestamp">Diperbarui 3 menit lalu</span>
+              </header>
+              <div class="heatmap">
+                <div class="heat-box positive">Keuangan</div>
+                <div class="heat-box positive">Telekom</div>
+                <div class="heat-box neutral">Energi</div>
+                <div class="heat-box negative">Material</div>
+                <div class="heat-box positive">Konsumsi</div>
+                <div class="heat-box neutral">Properti</div>
+              </div>
+              <footer>
+                <p>Sektor perbankan memimpin reli dengan kenaikan rata-rata 2,8%.</p>
+              </footer>
+            </article>
+
+            <article class="scan-card glass-panel">
+              <header>
+                <span class="chip">Smart Money Flow</span>
+                <span class="timestamp">Realtime</span>
+              </header>
+              <div class="flow-chart">
+                <div class="bar positive" data-label="Asing Masuk">+1,2T</div>
+                <div class="bar negative" data-label="Asing Keluar">-0,3T</div>
+                <div class="bar positive" data-label="Domestik">+0,8T</div>
+              </div>
+              <footer>
+                <p>Investor institusi menambah posisi pada saham blue-chip perbankan.</p>
+              </footer>
+            </article>
+
+            <article class="scan-card glass-panel">
+              <header>
+                <span class="chip">Saham Fokus</span>
+                <span class="timestamp">Picks AI</span>
+              </header>
+              <ul class="focus-list">
+                <li>
+                  <div>
+                    <span class="ticker">BBRI</span>
+                    <span class="label">Valuasi <span class="positive">Undervalued</span></span>
+                  </div>
+                  <span class="percentage positive">12%</span>
+                </li>
+                <li>
+                  <div>
+                    <span class="ticker">TLKM</span>
+                    <span class="label">Momentum</span>
+                  </div>
+                  <span class="percentage positive">8%</span>
+                </li>
+                <li>
+                  <div>
+                    <span class="ticker">UNVR</span>
+                    <span class="label">Dividend Yield</span>
+                  </div>
+                  <span class="percentage neutral">5,4%</span>
+                </li>
+                <li>
+                  <div>
+                    <span class="ticker">ANTM</span>
+                    <span class="label">Tekanan Jual</span>
+                  </div>
+                  <span class="percentage negative">-4,1%</span>
+                </li>
+              </ul>
+              <footer>
+                <p>Rangkuman otomatis berdasarkan 15 indikator fundamental dan teknikal.</p>
+              </footer>
+            </article>
+          </div>
+        </section>
+
+        <section class="deep-analytics" id="analisis">
+          <header class="section-header">
+            <h2>Analisis Fundamental Mendalam</h2>
+            <p>
+              Visualisasi rasio, valuasi, dan proyeksi yang dirancang agar investor Indonesia memahami kesehatan sebuah emiten hanya dalam beberapa detik.
+            </p>
+          </header>
+          <div class="analytics-layout">
+            <div class="analytics-main glass-panel">
+              <header class="analytics-header">
+                <div>
+                  <h3>BBCA &middot; Bank Central Asia</h3>
+                  <span class="tag positive">Strong Buy Insight</span>
+                </div>
+                <button class="btn btn-minimal">Lihat Emiten Lain</button>
+              </header>
+              <div class="analytics-grid">
+                <div class="metric-card glass-soft">
+                  <span class="metric-label">Valuasi Relatif</span>
+                  <span class="metric-value">12,8x</span>
+                  <span class="metric-desc">Forward P/E dibanding sektor: -18%</span>
+                </div>
+                <div class="metric-card glass-soft">
+                  <span class="metric-label">Pertumbuhan EPS</span>
+                  <span class="metric-value positive">+14,2%</span>
+                  <span class="metric-desc">CAGR 3 tahun terakhir</span>
+                </div>
+                <div class="metric-card glass-soft">
+                  <span class="metric-label">Rasio CAR</span>
+                  <span class="metric-value">24,1%</span>
+                  <span class="metric-desc">Stabil di atas rata-rata industri</span>
+                </div>
+                <div class="metric-card glass-soft">
+                  <span class="metric-label">Dividend Yield</span>
+                  <span class="metric-value neutral">2,5%</span>
+                  <span class="metric-desc">Payout ratio 45%</span>
+                </div>
+              </div>
+              <div class="valuation-chart">
+                <div class="chart-header">
+                  <span>Fair Value vs Price</span>
+                  <span class="legend">
+                    <span class="dot primary"></span>Fair Value
+                    <span class="dot accent"></span>Harga Pasar
+                  </span>
+                </div>
+                <div class="valuation-area"></div>
+              </div>
+            </div>
+            <aside class="analytics-side">
+              <article class="insight-card glass-panel">
+                <h4>Highlight Keuangan</h4>
+                <ul>
+                  <li>Pendapatan 2024 tumbuh 11% yoy, mengalahkan 87% kompetitor.</li>
+                  <li>Coverage analis konsisten menaikkan target price 3 kuartal berturut-turut.</li>
+                  <li>Kualitas aset tetap terjaga dengan NPL di 1,7%.</li>
+                </ul>
+              </article>
+              <article class="insight-card glass-panel">
+                <h4>Signal Risiko</h4>
+                <ul>
+                  <li>Valuasi premium berpotensi terbatas jika pertumbuhan kredit melambat.</li>
+                  <li>Ketergantungan pada fee-based income di tengah kompetisi digital bank.</li>
+                </ul>
+              </article>
+              <article class="insight-card glass-panel">
+                <h4>Rekomendasi Strategi</h4>
+                <p>Akumulasi bertahap dengan memanfaatkan koreksi jangka pendek &amp; memantau katalis makro BI Rate.</p>
+              </article>
+            </aside>
+          </div>
+        </section>
+
+        <section class="portfolio-suite" id="portfolio">
+          <header class="section-header">
+            <h2>Portofolio Otomatis + Asisten AI Investor</h2>
+            <p>
+              Satukan seluruh saham, reksa dana, dan kas Anda; dapatkan review otomatis, alert personal, dan skenario simulasi sesuai profil risiko.</p>
+          </header>
+          <div class="suite-grid">
+            <div class="suite-card glass-panel">
+              <h3>Scenario Planner</h3>
+              <p>Uji skenario makro (inflasi, BI rate, nilai tukar) dan lihat dampaknya terhadap portofolio dalam hitungan detik.</p>
+              <div class="scenario-chart">
+                <div class="scenario-bar" style="--value:72%">
+                  <span>Base Case</span>
+                  <strong>+7,2%</strong>
+                </div>
+                <div class="scenario-bar negative" style="--value:38%">
+                  <span>Bear Case</span>
+                  <strong>-3,8%</strong>
+                </div>
+                <div class="scenario-bar positive" style="--value:94%">
+                  <span>Bull Case</span>
+                  <strong>+9,4%</strong>
+                </div>
+              </div>
+            </div>
+            <div class="suite-card glass-panel">
+              <h3>Alert Insight</h3>
+              <p>Notifikasi proaktif ketika valuasi menyimpang, volatilitas meningkat, atau aksi korporasi diumumkan.</p>
+              <ul class="alert-list">
+                <li>
+                  <span class="badge positive">Valuasi</span>
+                  <span>BBRI masuk zona undervalued &middot; diskon 9%</span>
+                </li>
+                <li>
+                  <span class="badge negative">Volatilitas</span>
+                  <span>ANTM break support utama di 1.500</span>
+                </li>
+                <li>
+                  <span class="badge neutral">Aksi Korporasi</span>
+                  <span>TLKM umumkan buyback 2 Triliun</span>
+                </li>
+              </ul>
+            </div>
+            <div class="suite-card glass-panel">
+              <h3>AI Co-Pilot</h3>
+              <p>Analisa personal menggunakan bahasa natural Bahasa Indonesia &mdash; dari breakdown laporan keuangan sampai rekomendasi portofolio.</p>
+              <div class="copilot-chat">
+                <div class="chat-bubble user">Apakah TLKM masih atraktif di harga sekarang?</div>
+                <div class="chat-bubble ai">Valuasi TLKM berada di 0,9x EV/EBITDA. Margin laba meningkat 120 bps, momentum tetap konstruktif.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="insight-feed" id="insight-feed">
+          <header class="section-header">
+            <h2>Insight Harian Eksklusif</h2>
+            <p>Dapatkan update pasar, strategi sektor, dan sorotan institusi langsung ke dashboard Anda.</p>
+          </header>
+          <div class="feed-grid">
+            <article class="feed-card glass-panel">
+              <span class="feed-tag">Morning Brief</span>
+              <h3>Rotasi ke saham telekomunikasi dipimpin data center momentum</h3>
+              <p>Permintaan layanan cloud meningkatkan outlook pertumbuhan TLKM &amp; EXCL. Valuasi masih di bawah rerata historis.</p>
+              <button class="btn btn-text">Baca Insight</button>
+            </article>
+            <article class="feed-card glass-panel">
+              <span class="feed-tag">Institusi Watch</span>
+              <h3>Asing serok sektor perbankan, fokus pada BBNI &amp; BMRI</h3>
+              <p>Arus masuk bersih 1,8T dalam 5 hari perdagangan, didukung proyeksi kenaikan kredit UMKM.</p>
+              <button class="btn btn-text">Lihat Detail Transaksi</button>
+            </article>
+            <article class="feed-card glass-panel">
+              <span class="feed-tag">Macro Pulse</span>
+              <h3>Rapat BI jaga suku bunga, IHSG berpotensi konsolidasi sehat</h3>
+              <p>Stabilnya rupiah dan penurunan inflasi inti membuka ruang relaksasi di semester 2.</p>
+              <button class="btn btn-text">Buka Analisis</button>
+            </article>
+          </div>
+        </section>
+
+        <section class="pricing" id="pricing">
+          <header class="section-header">
+            <h2>Fleksibel untuk Setiap Investor</h2>
+            <p>Pilih paket sesuai kebutuhan. Upgrade kapan saja untuk insight realtime, analisis mendalam, dan akses analis InStrategic.</p>
+          </header>
+          <div class="pricing-toggle">
+            <span>Bulanan</span>
+            <label class="switch">
+              <input type="checkbox" id="billing-toggle" />
+              <span class="slider"></span>
+            </label>
+            <span>Tahunan <strong class="badge positive">Hemat 20%</strong></span>
+          </div>
+          <div class="pricing-grid">
+            <article class="price-card glass-panel">
+              <h3>Starter</h3>
+              <p class="price" data-monthly="0" data-yearly="0">Gratis</p>
+              <p class="desc">Akses dasar untuk memulai analisis saham Indonesia.</p>
+              <ul>
+                <li>Analisis ringkas 3 emiten / hari</li>
+                <li>Insight harian &amp; berita pasar</li>
+                <li>Portofolio manual</li>
+              </ul>
+              <button class="btn btn-primary">Mulai Gratis</button>
+            </article>
+            <article class="price-card glass-panel highlighted">
+              <div class="most-popular">Paling Populer</div>
+              <h3>Pro</h3>
+              <p class="price" data-monthly="249000" data-yearly="2290000">Rp249.000/bln</p>
+              <p class="desc">Insight realtime, sinyal valuasi, dan alert otomatis.</p>
+              <ul>
+                <li>Semua fitur Starter</li>
+                <li>Data realtime &amp; smart money radar</li>
+                <li>Portofolio otomatis &amp; alert AI</li>
+                <li>Laporan sektor mingguan</li>
+              </ul>
+              <button class="btn btn-secondary">Coba 14 Hari</button>
+            </article>
+            <article class="price-card glass-panel">
+              <h3>Quant+</h3>
+              <p class="price" data-monthly="499000" data-yearly="4590000">Rp499.000/bln</p>
+              <p class="desc">Untuk trader aktif &amp; profesional dengan kebutuhan data mendalam.</p>
+              <ul>
+                <li>API data &amp; ekspor ke Excel</li>
+                <li>Backtest strategi &amp; simulasi risiko</li>
+                <li>Insight analis eksklusif harian</li>
+                <li>Support prioritas 24/7</li>
+              </ul>
+              <button class="btn btn-ghost">Hubungi Kami</button>
+            </article>
+          </div>
+        </section>
+
+        <section class="trust" id="about">
+          <header class="section-header">
+            <h2>Dibangun untuk Investor Indonesia</h2>
+            <p>Transparansi, edukasi, dan insight presisi adalah fondasi kami.</p>
+          </header>
+          <div class="trust-grid">
+            <article class="trust-card glass-panel">
+              <h3>Data Kredibel</h3>
+              <p>Terintegrasi langsung dengan IDX, OJK, KSEI, dan sumber data keuangan global.</p>
+            </article>
+            <article class="trust-card glass-panel">
+              <h3>Keamanan Kelas Bank</h3>
+              <p>Enkripsi end-to-end, standar ISO 27001, dan autentikasi multifaktor.</p>
+            </article>
+            <article class="trust-card glass-panel">
+              <h3>Komunitas Edukatif</h3>
+              <p>Webinar mingguan, strategi sektor, dan akses analis untuk diskusi mendalam.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="cta" id="cta">
+          <div class="cta-inner glass-panel">
+            <h2>Siap memahami nilai sebenarnya setiap emiten BEI?</h2>
+            <p>Bangun keputusan investasi cerdas dengan dashboard futuristik dari InStrategic.</p>
+            <div class="cta-actions">
+              <button class="btn btn-primary">Daftar Gratis</button>
+              <button class="btn btn-secondary">Jadwalkan Demo</button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img src="assets/instrategic-logo.svg" alt="Logo InStrategic" class="footer-logo" />
+            <p>InStrategic meningkatkan literasi dan kepercayaan investor ritel terhadap pasar modal Indonesia.</p>
+          </div>
+          <div class="footer-links">
+            <h4>Produk</h4>
+            <a href="#hero">Dashboard</a>
+            <a href="#portfolio">Portofolio</a>
+            <a href="#pricing">Quant+</a>
+          </div>
+          <div class="footer-links">
+            <h4>Insight</h4>
+            <a href="#insight">Market Scan</a>
+            <a href="#insight-feed">Morning Brief</a>
+            <a href="#analisis">Analisis Emiten</a>
+          </div>
+          <div class="footer-links">
+            <h4>Perusahaan</h4>
+            <a href="#about">Tentang</a>
+            <a href="#cta">Hubungi</a>
+            <a href="#">Kebijakan Data</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>&copy; 2025 InStrategic Tech. All rights reserved.</span>
+          <div class="footer-socials">
+            <a href="#" aria-label="LinkedIn">LinkedIn</a>
+            <a href="#" aria-label="YouTube">YouTube</a>
+            <a href="#" aria-label="Telegram">Telegram</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="scripts/main.js" defer></script>
+  </body>
+</html>
